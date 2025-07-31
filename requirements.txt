@@ -1,16 +1,16 @@
 --extra-index-url https://download.pytorch.org/whl/cu126
 diffusers[torch]
-transformers==4.37.2
+transformers
 bitsandbytes
 decord==0.6.0
 click==8.1.7
-pytorch-lightning=
+pytorch-lightning
 omegaconf==2.2.3
-nerfacc==0.3.3
+nerfacc
 trimesh==3.9.8
 pyhocon==0.3.57
 icecream==2.1.0
-PyMCubes==0.1.2
+PyMCubes
 accelerate
 modelcards
 einops
