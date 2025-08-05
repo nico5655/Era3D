@@ -7,7 +7,7 @@ click==8.1.7
 pytorch-lightning
 omegaconf==2.2.3
 nerfacc
-trimesh==3.9.8
+trimesh
 pyhocon==0.3.57
 icecream==2.1.0
 PyMCubes
