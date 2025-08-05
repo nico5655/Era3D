@@ -180,7 +180,7 @@ def log_validation_joint(dataloader, pipeline, cfg: TestConfig,  save_dir):
 
 def load_era3d_pipeline(cfg):
     pipeline = StableUnCLIPImg2ImgPipeline.from_pretrained(cfg.pretrained_model_name_or_path, torch_dtype=weight_dtype)
-    pipeline.unet.enable_xformers_memory_efficient_attention()
+    #pipeline.unet.enable_xformers_memory_efficient_attention()
     if torch.cuda.is_available():
         pipeline.to('cuda:0')
     return pipeline
@@ -223,7 +223,9 @@ if __name__ == '__main__':
     # cfg = OmegaConf.load(args.config)
     cfg = OmegaConf.merge(schema, cfg)
 
-    if cfg.num_views == 6:
+    if cfg.num_views==1:
+        VIEWS=['front']
+    elif cfg.num_views == 6:
         VIEWS = ['front', 'front_right', 'right', 'back', 'left', 'front_left']
     elif cfg.num_views == 4:
         VIEWS = ['front', 'right', 'back', 'left']
