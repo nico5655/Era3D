@@ -115,7 +115,7 @@ def main():
         logger.info(f'Training finished. Checkpoints are saved at {config.ckpt_dir}, Rendering...')
         trainer.test(system, datamodule=dm)
         texture_refine(case=config.dataset.scene,
-                       input_dir='../examples',
+                       input_dir='../images_test',
                        img_path=config.dataset.root_dir,
                        mesh_dir=config.save_dir,
                        save_dir=config.save_dir,
