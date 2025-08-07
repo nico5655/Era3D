@@ -4,7 +4,9 @@ import os
 import time
 import logging
 from datetime import datetime
+print('test1')
 from texture_refine import texture_refine
+print('test2')
 import torch
 def main():
     parser = argparse.ArgumentParser()

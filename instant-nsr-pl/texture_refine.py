@@ -1,5 +1,7 @@
 from utils.func import load_obj,  save_obj,  make_sparse_camera, calc_vertex_normals, make_round_views, make_addition_views
+print('test11')
 from utils.render import nvdiffRenderer
+print('test12')
 from utils.video_utils import *
 import  torch.optim as optim
 from tqdm import tqdm
