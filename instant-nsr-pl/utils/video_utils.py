@@ -1,5 +1,7 @@
+print('are we there')
 from moviepy.editor import VideoFileClip, VideoClip, ImageClip, CompositeVideoClip, ImageSequenceClip
 from moviepy.editor import VideoFileClip, clips_array
+print('yet?')
 import os
 import argparse
 
