@@ -6,7 +6,7 @@ decord==0.6.0
 click==8.1.7
 pytorch-lightning==1.9.0
 omegaconf==2.2.3
-nerfacc
+nerfacc==0.3.3
 trimesh
 pyhocon==0.3.57
 icecream==2.1.0

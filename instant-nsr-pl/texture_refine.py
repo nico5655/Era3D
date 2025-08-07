@@ -6,7 +6,9 @@ from utils.video_utils import *
 import  torch.optim as optim
 from tqdm import tqdm
 import cv2
+print('test13')
 from rembg import remove
+print('test14')
 # try:
 #     from util.view import show
 # except:
@@ -14,11 +16,13 @@ from rembg import remove
 import numpy as np
 import os
 from PIL import Image
+print('test14')
 import kornia
 import torch
 import torch.nn as nn
 import  torch.nn.functional as F 
 import trimesh
+print('test16')
 from icecream import ic
 #### ------------------- config----------------------
 steps = 200
