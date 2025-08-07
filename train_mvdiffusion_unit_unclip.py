@@ -43,6 +43,7 @@ from mvdiffusion.pipelines.pipeline_mvdiffusion_unclip import StableUnCLIPImg2Im
 from dataclasses import dataclass
 import shutil
 logger = get_logger(__name__, log_level="INFO")
+
 @dataclass
 class TrainingConfig:
     pretrained_model_name_or_path: str
