@@ -3,10 +3,10 @@ print('test11')
 from utils.render import nvdiffRenderer
 print('test12')
 from utils.video_utils import *
+print('test13')
 import  torch.optim as optim
 from tqdm import tqdm
 import cv2
-print('test13')
 from rembg import remove
 print('test14')
 # try:
