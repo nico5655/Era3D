@@ -12,7 +12,7 @@ def _warmup(glctx, device):
 
 class nvdiffRenderer:
     
-    _glctx:dr.RasterizeGLContext = None
+    _glctx:dr.RasterizeCudaContext = None
     
     def __init__(
             self,
@@ -23,7 +23,7 @@ class nvdiffRenderer:
             ):
         self._mvp = proj @ mv #C,4,4
         self._image_size = image_size
-        self._glctx = dr.RasterizeGLContext()
+        self._glctx = dr.RasterizeCudaContext()
         _warmup(self._glctx, device=device)
 
     def render(self,
