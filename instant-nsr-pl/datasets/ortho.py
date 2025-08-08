@@ -359,9 +359,9 @@ class OrthoDataModule(pl.LightningDataModule):
         sampler = None
         return DataLoader(
             dataset, 
-            num_workers=0, 
+            num_workers=0, #os.cpu_count()
             batch_size=batch_size,
-            pin_memory=False,
+            pin_memory=False,#True
             sampler=sampler
         )
     
