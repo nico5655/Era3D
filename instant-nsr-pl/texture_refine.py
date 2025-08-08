@@ -113,7 +113,8 @@ def optim_clr(case, img_path, mesh_dir, save_dir, device):
         loss.backward()
         clr_opt.step()
         clr_scheduler.step()
-
+    face2=face[...,::-1]
+    save_obj(vert, face2, f'{save_dir}/refine_rev_{case}.obj', color_model.colors.detach())
     save_obj(vert, face, f'{save_dir}/refine_{case}.obj', color_model.colors.detach())
     return evaluate(vert, color_model.colors.detach(), face, device=device, save_nrm=False, save_path=f'{save_dir}/refine_{case}.mp4')
 
