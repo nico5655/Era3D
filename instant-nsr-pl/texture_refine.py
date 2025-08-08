@@ -131,7 +131,7 @@ def crop_input(image_input):
         np_img=np.asarray(image_input)
         bigger_image=np.zeros((np_img.shape[0],np_img.shape[1],4),dtype=np.uint8)
         bigger_image[...,:-1]=np_img
-        bigger_image[np.any(np_img!=255,axis=-1),-1]=255
+        bigger_image[np.any(np_img<253,axis=-1),-1]=255
         image_input=Image.fromarray(bigger_image)
     alpha_np = np.asarray(image_input)[:, :, 3]
     coords = np.stack(np.nonzero(alpha_np), 1)[:, (1, 0)]
