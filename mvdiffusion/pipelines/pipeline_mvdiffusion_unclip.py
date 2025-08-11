@@ -497,6 +497,7 @@ class StableUnCLIPImg2ImgPipeline(DiffusionPipeline):
             batch_size = len(image)
         elif isinstance(image, torch.Tensor):
             batch_size = image.shape[0]
+            print(batch_size,self.num_views)
             assert batch_size >= self.num_views and batch_size % self.num_views == 0
         elif isinstance(image, PIL.Image.Image):
             image = [image]*self.num_views*2
