@@ -581,6 +581,7 @@ class StableUnCLIPImg2ImgPipeline(DiffusionPipeline):
             latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
 
             # predict the noise residual
+            print(cross_attention_kwargs)
             unet_out = self.unet(
                 latent_model_input,
                 t,
