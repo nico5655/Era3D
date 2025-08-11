@@ -80,7 +80,7 @@ def log_validation_joint(dataloader, pipeline, cfg: TestConfig,  save_dir):
         generator = None
     else:
         generator = torch.Generator(device=pipeline.unet.device).manual_seed(cfg.seed)
-    
+    print(pipeline.num_views)
     images_cond, pred_cat = [], defaultdict(list)
     for _, batch in tqdm(enumerate(dataloader)):
         images_cond.append(batch['imgs_in'][:, 0]) 
@@ -179,7 +179,6 @@ def log_validation_joint(dataloader, pipeline, cfg: TestConfig,  save_dir):
     torch.cuda.empty_cache()    
 
 def load_era3d_pipeline(cfg):
-    print(cfg,type(cfg))
     pipeline = StableUnCLIPImg2ImgPipeline.from_pretrained(cfg.pretrained_model_name_or_path, torch_dtype=weight_dtype)
     pipeline.unet.enable_xformers_memory_efficient_attention()
     if torch.cuda.is_available():
