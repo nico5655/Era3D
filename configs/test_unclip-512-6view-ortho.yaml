@@ -2,7 +2,7 @@ pretrained_model_name_or_path: 'pengHTYX/MacLab-Era3D-512-6view-ortho'
 pretrained_unet_path: null
 revision: null
 
-num_views: 6
+num_views: 1
 validation_dataset:
   prompt_embeds_path: mvdiffusion/data/fixed_prompt_embeds_6view
   root_dir: 'examples'
