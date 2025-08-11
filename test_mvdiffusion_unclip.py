@@ -80,7 +80,7 @@ def log_validation_joint(dataloader, pipeline, cfg: TestConfig,  save_dir):
         generator = None
     else:
         generator = torch.Generator(device=pipeline.unet.device).manual_seed(cfg.seed)
-    pipeline.num_views=1
+        
     images_cond, pred_cat = [], defaultdict(list)
     for _, batch in tqdm(enumerate(dataloader)):
         images_cond.append(batch['imgs_in'][:, 0]) 

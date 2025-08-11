@@ -590,8 +590,7 @@ class BasicMVTransformerBlock(nn.Module):
             norm_hidden_states = (
                 self.norm_mv(hidden_states, timestep) if self.use_ada_layer_norm else self.norm_mv(hidden_states)
             )
-            print(self.num_views)
-            self.num_views=1
+            
             attn_output = self.attn_mv(
                 norm_hidden_states,
                 encoder_hidden_states=encoder_hidden_states if self.only_cross_attention else None,
