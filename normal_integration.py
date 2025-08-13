@@ -368,7 +368,8 @@ def bilateral_normal_integration(normal_map,
 def run_normal_integration(in_img):
     if type(in_img) is str:
         in_img=Image.open(in_img)
-     normal_map=np.array(in_img).astype(np.float32)/ 255.0
+     
+    normal_map=np.array(in_img).astype(np.float32)/ 255.0
     
     if normal_map.shape[-1]==4:
         normal_map[normal_map[...,-1]==0]=1
