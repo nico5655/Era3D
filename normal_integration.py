@@ -365,7 +365,7 @@ def bilateral_normal_integration(normal_map,
 
     return depth_map, surface, wu_map, wv_map, energy_list
 
-def run_normal_integration(in_img):
+def run_normal_integration(in_img,**kwargs):
     if type(in_img) is str:
         in_img=Image.open(in_img)
      
@@ -380,6 +380,6 @@ def run_normal_integration(in_img):
     filters=((normals**2).sum(axis=-1)<2.7)
     normals=normals/(((normals**2).sum(axis=-1))**(1/2))[...,None]
 
-    depth, surface, wx, wy, energy = bilateral_normal_integration(normals, filters)
+    depth, surface, wx, wy, energy = bilateral_normal_integration(normals, filters, **kwargs)
 
     return depth,surface
