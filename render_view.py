@@ -30,8 +30,8 @@ def spherical_to_cartesian(elev_deg, azim_deg, r):
 light_specs = [
     {"location": (2, 3, -2), "energy": 1000},   # Key light
     {"location": (-2, 3, -2), "energy": 300},   # Fill light
-    {"location": (-2, -3, -2), "energy": 300},   # Fill light
-    {"location": (-2, 2, 2), "energy": 500},    # Rim/back light
+    {"location": (-2, -3, 2), "energy": 300},   # Fill light
+    {"location": (-2, 3, 2), "energy": 500},    # Rim/back light
 ]
 
 for spec in light_specs:
