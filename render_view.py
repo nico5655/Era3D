@@ -32,6 +32,7 @@ light_specs = [
     {"location": (-2, 3, -2), "energy": 300},   # Fill light
     {"location": (-2, -3, 2), "energy": 300},   # Fill light
     {"location": (-2, 3, 2), "energy": 500},    # Rim/back light
+    {"location": (2, 3, 2), "energy": 500},    # Rim/back light
 ]
 
 for spec in light_specs:
