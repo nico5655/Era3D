@@ -134,7 +134,9 @@ cam.data.lens = factor*65#39.85, for the fake p3d
 cam_location = spherical_to_cartesian(elevation, azimuth, distance)
 # Add and orient camera
 cam.location=cam_location
-print(cam_location)
+import os
+with open('/content/a.txt') as w:
+    w.write(str(cam_location))
 target_location = mathutils.Vector((0, 0, 0))
 direction = (target_location - cam_location).normalized()
 up = mathutils.Vector((0, 1, 0))
