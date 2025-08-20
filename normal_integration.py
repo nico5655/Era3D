@@ -120,10 +120,10 @@ def map_depth_map_to_point_clouds(depth_map, mask, K=None, step_size=1):
     xx = np.flip(xx, axis=0)
 
     if K is None:
-        vertices = np.zeros((H, W, 3))#If no K, we will return the surface in the normal system instead of the camera system
+        vertices = np.zeros((H, W, 3))
         vertices[..., 1] = xx * step_size
-        vertices[..., 0] = yy * step_size#y and x are flipped between the two systems
-        vertices[..., 2] = -depth_map#z is inverted
+        vertices[..., 0] = yy * step_size
+        vertices[..., 2] = -depth_map#z is inverted. Because we want to actually be in normal system
         vertices = vertices[mask]
     else:
         u = np.zeros((H, W, 3))
