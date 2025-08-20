@@ -185,4 +185,4 @@ def get_calibration_matrix_K_from_blender(camd):
         (    0  , 0,        1 )))
     return K
 
-print(get_calibration_matrix_K_from_blender(cam))
+print(get_calibration_matrix_K_from_blender(cam.data))
