@@ -127,6 +127,7 @@ sensor_width = 36  # mm, default for Blender full-frame camera
 
 factor=3
 distance = factor*1.6*max_extent / math.tan(math.radians(fov_deg / 2))
+print(distance)
 bpy.ops.object.camera_add()
 cam = bpy.context.object
 bpy.context.scene.camera = cam
