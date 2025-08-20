@@ -132,7 +132,7 @@ def map_depth_map_to_point_clouds(depth_map, mask, K=None, step_size=1):
         u[..., 2] = 1
         u = u[mask].T  # 3 x m
         vertices = (np.linalg.inv(K) @ u).T * depth_map[mask, np.newaxis]  # m x 3
-        vertices[...,0],vertices[...,1]=vertices[...,1],vertices[...,0]
+        #vertices[...,0],vertices[...,1]=vertices[...,1],vertices[...,0]
         vertices[...,2]*=-1
 
     return vertices
