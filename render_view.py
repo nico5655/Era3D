@@ -131,9 +131,14 @@ print(distance)
 bpy.ops.object.camera_add()
 cam = bpy.context.object
 bpy.context.scene.camera = cam
-cam.data.lens = factor*65
-#cam.data.type='ORTHO'
-#cam.data.ortho_scale=1.0
+
+if distance==-1.0:
+    distance = factor*1.6*max_extent / math.tan(math.radians(fov_deg / 2))
+    cam.data.lens = factor*65
+else:
+    cam.data.type='ORTHO'
+    cam.data.ortho_scale=1.0
+    
 cam_location = spherical_to_cartesian(elevation, azimuth, distance)
 # Add and orient camera
 cam.location=cam_location
