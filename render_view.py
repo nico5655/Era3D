@@ -95,7 +95,12 @@ scene.cycles.volume_bounces = 1
 # Load STL
 elevation = float(argv[0])
 azimuth = float(argv[1])
-distance = float(argv[2])
+if argv[2]=='ortho':
+    distance=0
+elif argv[2]=='auto':
+    distance=-1
+else:
+    distance = float(argv[2])
 mesh_path = argv[3]
 output_img = argv[4]
 
@@ -134,9 +139,11 @@ if distance==-1.0:
     factor=2
     distance = factor*1.6*max_extent / math.tan(math.radians(fov_deg / 2))
     cam.data.lens = factor*65
-else:
+    print(distance)
+elif distance==0:
     cam.data.type='ORTHO'
     cam.data.ortho_scale=1.0
+    distance=1
     
 cam_location = spherical_to_cartesian(elevation, azimuth, distance)
 # Add and orient camera
