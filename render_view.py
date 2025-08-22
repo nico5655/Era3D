@@ -109,7 +109,7 @@ bpy.ops.import_mesh.stl(filepath=mesh_path)
 obj = bpy.context.selected_objects[0]
 bpy.context.view_layer.objects.active = obj
 bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
-obj.location = (0, 0, 0)
+#obj.location = (0, 0, 0)
 
 mat = bpy.data.materials.new(name="GrayMaterial")
 mat.diffuse_color = (0.20098039, 0.29117647, 0.50882353, 1)  # RGBA gray
