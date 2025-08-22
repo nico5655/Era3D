@@ -135,6 +135,7 @@ bpy.ops.object.camera_add()
 cam = bpy.context.object
 bpy.context.scene.camera = cam
 
+cam.data.lens=50
 if distance==-1.0:
     factor=2
     distance = factor*1.6*max_extent / math.tan(math.radians(fov_deg / 2))
