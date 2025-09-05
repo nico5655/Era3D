@@ -26,6 +26,45 @@ def move_bottom_left(mask): return np.pad(mask,((1,0),(0,1)),'constant',constant
 def move_bottom_right(mask): return np.pad(mask,((1,0),(1,0)),'constant',constant_values=0)[:-1,:-1]  # Shift the input mask array down and to the right by 1, filling the top and left edges with zeros.
 
 
+import numpy as np
+
+def remove_global_tilt_from_contour(z, contour_mask, contour_depth, step_size=1):
+    """
+    Adjust z by adding a best-fit plane so that z matches contour_depth on contour_mask.
+    z_new = z + a*x + b*y + c
+
+    Args
+      z: (H,W) current depth (orthographic, linear)
+      contour_mask: (H,W) bool, True where you have target depths
+      contour_depth: (H,W) float, target depths on the contour
+      step_size: pixel size used to build your vertices (same as in BiNI)
+      robust: if True, use a simple IRLS-Huber to downweight outliers
+      iters: IRLS iterations if robust=True
+
+    Returns
+      z_new: depth with global tilt corrected
+      (a,b,c): plane coefficients applied
+    """
+    H, W = z.shape
+    ii, jj = np.meshgrid(np.arange(H), np.arange(W), indexing='ij')
+    x = jj * step_size
+    y = ii * step_size
+
+    m = contour_mask & np.isfinite(contour_depth)
+    if not np.any(m):
+        raise ValueError("contour_mask has no valid points")
+
+    # Solve X theta ≈ y_tar, where y_tar = contour_depth - z on the contour
+    X = np.stack([x[m], y[m], np.ones(np.count_nonzero(m))], axis=1)
+    y_tar = (contour_depth[m] - z[m]).astype(float)
+
+    theta, *_ = np.linalg.lstsq(X, y_tar, rcond=None)
+
+    a, b, c = theta
+    z_new = z + (a * x + b * y + c)
+    return z_new, (a, b, c)
+
+
 def generate_dx_dy(mask, nz_horizontal, nz_vertical, step_size=1):
     # pixel coordinates
     # ^ vertical positive
@@ -267,6 +306,7 @@ def bilateral_normal_integration(normal_map,
         M = spdiags(m, 0, num_normals, num_normals, format="csr")
         z_prior = np.log(depth_map)[normal_mask] if K is not None else depth_map[normal_mask]
 
+    zp=np.log(depth_map) if K is not None else depth_map
     pbar = tqdm(range(max_iter))
 
     # Optimization loop
@@ -309,6 +349,8 @@ def bilateral_normal_integration(normal_map,
     # Reconstruct the depth map and surface
     depth_map = np.ones_like(normal_mask, float) * np.nan
     depth_map[normal_mask] = z
+
+    depth_map,_=remove_global_tilt_from_contour(depth_map,depth_mask,zp,step_size=step_size)
 
     if K is not None:  # perspective
         depth_map = np.exp(depth_map)
@@ -370,6 +412,8 @@ def bilateral_normal_integration(normal_map,
 def run_normal_integration(in_img,**kwargs):
     if type(in_img) is str:
         in_img=Image.open(in_img)
+    elif type(in_img) is np.ndarray:
+        in_img=Image.fromarray(np.uint8(255*in_img))
      
     normal_map=np.array(in_img).astype(np.float32)/ 255.0
     
