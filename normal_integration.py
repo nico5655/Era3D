@@ -350,7 +350,8 @@ def bilateral_normal_integration(normal_map,
     depth_map = np.ones_like(normal_mask, float) * np.nan
     depth_map[normal_mask] = z
 
-    depth_map,_=remove_global_tilt_from_contour(depth_map,depth_mask,zp,step_size=step_size)
+    if zp is not None:
+        depth_map,_=remove_global_tilt_from_contour(depth_map,depth_mask,zp,step_size=step_size)
 
     if K is not None:  # perspective
         depth_map = np.exp(depth_map)
