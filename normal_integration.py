@@ -53,7 +53,7 @@ def remove_global_tilt_from_contour(z, contour_mask, contour_depth, step_size=1)
     m = contour_mask & np.isfinite(contour_depth)
     I,J=np.where(m&(~np.isfinite(z)))
     for i, j in zip(I, J):
-        block = Z[max(0,i-1):i+2, max(0,j-1):j+2]  # 3x3 neighborhood
+        block = z[max(0,i-1):i+2, max(0,j-1):j+2]  # 3x3 neighborhood
         z[i, j] = np.nanmean(block)
     if not np.any(m):
         raise ValueError("contour_mask has no valid points")
