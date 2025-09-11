@@ -57,7 +57,7 @@ def remove_global_tilt_from_contour(z, contour_mask, contour_depth, step_size=1)
     # Solve X theta ≈ y_tar, where y_tar = contour_depth - z on the contour
     X = np.stack([x[m], y[m], np.ones(np.count_nonzero(m))], axis=1)
     y_tar = (contour_depth[m] - z[m]).astype(float)
-    print(x,y_tar)
+    print(y_tar)
     theta, *_ = np.linalg.lstsq(X, y_tar, rcond=None)
 
     a, b, c = theta
