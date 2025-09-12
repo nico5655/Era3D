@@ -53,7 +53,9 @@ def remove_global_tilt_from_contour(z, contour_mask, contour_depth, step_size=1)
     m = contour_mask & np.isfinite(contour_depth)
     I,J=np.where(m&(~np.isfinite(z)))
     for i, j in zip(I, J):
-        block = z[max(0,i-1):i+2, max(0,j-1):j+2]  # 3x3 neighborhood
+        block = z[max(0,i-1):i+2, max(0,j-1):j+2]  # add an exception if everything is nan
+        # but it shouldn't if the cameras match and they should, since the lines are placed on the image
+        #add warning upstream
         z[i, j] = np.nanmean(block)
     if not np.any(m):
         raise ValueError("contour_mask has no valid points")
@@ -165,7 +167,7 @@ def map_depth_map_to_point_clouds(depth_map, mask, K=None, step_size=1):
         vertices = np.zeros((H, W, 3))
         vertices[..., 1] = xx * step_size
         vertices[..., 0] = yy * step_size
-        vertices[..., 2] = -depth_map#z is inverted. Because we want to actually be in normal system
+        vertices[..., 2] = depth_map#z is inverted. Because we want to actually be in normal system
         vertices = vertices[mask]
     else:
         u = np.zeros((H, W, 3))
@@ -175,7 +177,6 @@ def map_depth_map_to_point_clouds(depth_map, mask, K=None, step_size=1):
         u = u[mask].T  # 3 x m
         vertices = (np.linalg.inv(K) @ u).T * depth_map[mask, np.newaxis]  # m x 3
         #vertices[...,0],vertices[...,1]=vertices[...,1],vertices[...,0]
-        vertices[...,2]*=-1
 
     return vertices
 

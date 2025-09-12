@@ -82,3 +82,29 @@ def harmonic_prior_from_contour(
     prior_mask = domain
     return depth_prior, prior_mask
 depth_prior,prior_mask=harmonic_prior_from_contour((img_l[...,1]==1),img_l[...,0],img4==1)
+
+import trimesh
+
+def apply_symmetry_by_edition(surface, sym_plan_vec,transfo_center):
+  ortho=sym_plan_vec
+  p0=ntransfo_center[0]*np.array([1,1,-1])
+  n=ortho[0]
+  c=np.dot(p0,n)
+  m2=surface.copy()
+  nmesh=m2.submesh([(m2.triangles_center*n[None,:]).sum(axis=-1)<c])[0]
+
+  R = np.eye(4)
+  R[:3, :3] -= 2.0 * np.outer(n, n)
+  R[:3, 3] = 2.0 * (c) * n
+
+  mirrored = nmesh.copy()
+  mirrored.apply_transform(R)
+  pred=(m2.vertices*n[None,:]).sum(axis=-1)>c
+  dists=((m2.vertices[pred][:,None,:]-mirrored.vertices[None,:,:])**2).sum(axis=-1)
+  targs=np.argmin(dists,axis=-1)
+  m2.vertices[pred]=mirrored.vertices[targs]
+  return m2
+
+m2=apply_symmetry_by_edition(surface1,sym_plan_vec,ntransfo_center)
+m2.apply_translation(-m2.centroid*np.array([1,1,1]))
+m2.show()
