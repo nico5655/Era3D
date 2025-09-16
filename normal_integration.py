@@ -167,7 +167,7 @@ def map_depth_map_to_point_clouds(depth_map, mask, K=None, step_size=1):
         vertices = np.zeros((H, W, 3))
         vertices[..., 1] = xx * step_size
         vertices[..., 0] = yy * step_size
-        vertices[..., 2] = depth_map#z is inverted. Because we want to actually be in normal system
+        vertices[..., 2] = depth_map
         vertices = vertices[mask]
     else:
         u = np.zeros((H, W, 3))
